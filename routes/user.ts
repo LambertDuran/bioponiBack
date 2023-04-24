@@ -16,6 +16,8 @@ import sandre from "../defaultData/sandre.json";
 const prisma = new PrismaClient();
 
 router.post("/", async (req: Request, res: Response) => {
+  console.log("test1");
+
   // 1. Create a new user
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -28,6 +30,8 @@ router.post("/", async (req: Request, res: Response) => {
   if (existingUser)
     return res.status(400).send("Utilisateur déjà enregistré !");
 
+  console.log("test2");
+
   const salt = await bcrypt.genSalt(10);
   req.body.password = await bcrypt.hash(req.body.password, salt);
 
@@ -36,6 +40,8 @@ router.post("/", async (req: Request, res: Response) => {
   });
   if (!user)
     return res.status(400).send("Erreur dans la création de l'utilisateur !");
+
+  console.log("test3");
 
   // 2. Create a default food
   const food = await prisma.food.create({
@@ -53,6 +59,8 @@ router.post("/", async (req: Request, res: Response) => {
     return res
       .status(400)
       .send("Erreur dans la création de l'aliment par défaut !");
+
+  console.log("test4");
 
   // 3. Create default fishes
   const prismaTaec = await prisma.fish.create({
@@ -155,6 +163,9 @@ router.post("/", async (req: Request, res: Response) => {
     return res
       .status(400)
       .send("Erreur dans la création des poissons par défaut !");
+  else console.log("prismaSandre", prismaSandre);
+
+  console.log("test5");
 
   // 4. Create default pool
   const pool = await prisma.pool.create({
@@ -174,6 +185,9 @@ router.post("/", async (req: Request, res: Response) => {
     return res
       .status(400)
       .send("Erreur dans la création du bassin par défaut !");
+
+  console.log("test6");
+  console.log("user", user);
 
   return res
     .header("x-auth-token", generateAuthToken(user))
