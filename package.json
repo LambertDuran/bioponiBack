@@ -23,7 +23,7 @@
     "docker:down": "docker-compose down",
     "test": "yarn docker:up && dotenv -e .env.test -- npx prisma migrate deploy && dotenv -e .env.test jest -i",
     "studio_test": "dotenv -e .env.test -- npx prisma studio",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
     "postinstall": "tsc",
     "migrate": "prisma migrate deploy"
   },
@@ -45,7 +45,6 @@
     "joi": "^17.8.3",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
-    "nodemon": "^2.0.21",
-    "ts-node": "^10.9.1"
+    "nodemon": "^2.0.21"
   }
 }
